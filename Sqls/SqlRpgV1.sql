@@ -1,60 +1,60 @@
 CREATE TABLE Tipo_Item (
-  id_Tipo_Item INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nm_Tipo_Item VARCHAR NULL,
-  PRIMARY KEY(id_Tipo_Item)
+  id_Tipo_Item INT NOT NULL AUTO_INCREMENT,
+  nm_Tipo_Item VARCHAR(45),
+  PRIMARY KEY (id_Tipo_Item)
 );
 
 CREATE TABLE Tipo_Inventario (
   id_Tipo_Inventario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nm_Tipo_Inventario VARCHAR NULL,
+  nm_Tipo_Inventario VARCHAR(45) NULL,
   espaco_invent INTEGER UNSIGNED NULL,
   PRIMARY KEY(id_Tipo_Inventario)
 );
 
 CREATE TABLE Tipo_Habilidade (
   id_Tipo_Habilidade INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nm_Tipo_Habilidade VARCHAR NULL,
-  elemento_habilidade VARCHAR NULL,
+  nm_Tipo_Habilidade VARCHAR(45) NULL,
+  elemento_habilidade VARCHAR(45) NULL,
   PRIMARY KEY(id_Tipo_Habilidade)
 );
 
 CREATE TABLE TIpo_Personagem (
   id_Tipo_Personagem INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nm_Tipo_Personagem VARCHAR NULL,
+  nm_Tipo_Personagem VARCHAR(45) NULL,
   PRIMARY KEY(id_Tipo_Personagem)
 );
 
 CREATE TABLE Usuario (
   id_Usuario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  login VARCHAR NOT NULL,
-  senha VARCHAR NOT NULL,
-  nm_usuario VARCHAR NULL,
+  login VARCHAR(45) NOT NULL,
+  senha VARCHAR(45) NOT NULL,
+  nm_usuario VARCHAR(45) NULL,
   dt_nasci DATE NULL,
-  email VARCHAR NULL,
-  pergunta_secreta VARCHAR NULL,
-  resposta_secreta VARCHAR NULL,
+  email VARCHAR(45) NULL,
+  pergunta_secreta VARCHAR(45) NULL,
+  resposta_secreta VARCHAR(45) NULL,
   PRIMARY KEY(id_Usuario)
 );
 
 CREATE TABLE Tipo_Resistencia (
   idTipo_Resistencia INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   vl_base_resist INTEGER UNSIGNED NULL,
-  nm_resist VARCHAR NULL,
-  elemento_resist VARCHAR NULL,
+  nm_resist VARCHAR(45) NULL,
+  elemento_resist VARCHAR(45) NULL,
   PRIMARY KEY(idTipo_Resistencia)
 );
 
 CREATE TABLE Tipo_Quest (
   idTipo_Quest INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  ds_TipoQuest VARCHAR NULL,
+  ds_TipoQuest VARCHAR(45) NULL,
   PRIMARY KEY(idTipo_Quest)
 );
 
 CREATE TABLE Raca (
   id_Raca INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Tipo_Resistencia_idTipo_Resistencia INTEGER UNSIGNED NOT NULL,
-  nm_Raca VARCHAR NULL,
-  ds_Raca VARCHAR NULL,
+  nm_Raca VARCHAR(45) NULL,
+  ds_Raca VARCHAR(45) NULL,
   vl_Base_Vida INTEGER UNSIGNED NULL,
   vl_Base_Mana INTEGER UNSIGNED NULL,
   vl_Base_Stamina INTEGER UNSIGNED NULL,
@@ -72,7 +72,7 @@ CREATE TABLE Raca (
 CREATE TABLE Item (
   id_Item INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Tipo_Item_id_Tipo_Item INTEGER UNSIGNED NOT NULL,
-  nm_item VARCHAR NULL,
+  nm_item VARCHAR(45) NULL,
   consumivel BOOL NULL,
   PRIMARY KEY(id_Item),
   INDEX Item_FKIndex1(Tipo_Item_id_Tipo_Item),
@@ -125,7 +125,7 @@ CREATE TABLE Personagem (
   Raca_id_Raca INTEGER UNSIGNED NOT NULL,
   TIpo_Personagem_id_Tipo_Personagem INTEGER UNSIGNED NOT NULL,
   Usuario_id_Usuario INTEGER UNSIGNED NOT NULL,
-  nm_Personagem VARCHAR NULL,
+  nm_Personagem VARCHAR(45) NULL,
   genero INTEGER UNSIGNED NULL,
   dt_Criacao DATE NULL,
   vl_Experiencia INTEGER UNSIGNED NULL,
@@ -179,7 +179,7 @@ CREATE TABLE Inventario (
 CREATE TABLE Cidade (
   id_Cidade INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   Personagem_id_Personagem INTEGER UNSIGNED NOT NULL,
-  nm_Cidade VARCHAR NULL,
+  nm_Cidade VARCHAR(45) NULL,
   sqm_cidade INTEGER UNSIGNED NULL,
   PRIMARY KEY(id_Cidade),
   INDEX Cidade_FKIndex1(Personagem_id_Personagem),
@@ -196,7 +196,7 @@ CREATE TABLE Quest (
   Personagem_id_Personagem INTEGER UNSIGNED NOT NULL,
   Tipo_Quest_idTipo_Quest INTEGER UNSIGNED NOT NULL,
   nm_Quest INTEGER UNSIGNED NULL,
-  ds_Quest VARCHAR NULL,
+  ds_Quest VARCHAR(45) NULL,
   qt_exp_recomp INTEGER UNSIGNED NULL,
   PRIMARY KEY(id_Quest),
   INDEX Quest_FKIndex1(Tipo_Quest_idTipo_Quest),
