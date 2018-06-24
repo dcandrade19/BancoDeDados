@@ -1,0 +1,146 @@
+CREATE TABLE Tipo_Item (
+  id_Tipo_Item INT NOT NULL AUTO_INCREMENT,
+  nm_Tipo_Item VARCHAR(45),
+  PRIMARY KEY (id_Tipo_Item)
+);
+
+CREATE TABLE Tipo_Habilidade (
+  id_Tipo_Habilidade INTEGER NOT NULL AUTO_INCREMENT,
+  nm_Tipo_Habilidade VARCHAR(45),
+  PRIMARY KEY(id_Tipo_Habilidade)
+);
+
+CREATE TABLE TIpo_Personagem (
+  id_Tipo_Personagem INTEGER NOT NULL AUTO_INCREMENT,
+  nm_Tipo_Personagem VARCHAR(45) NULL,
+  PRIMARY KEY(id_Tipo_Personagem)
+);
+
+CREATE TABLE Usuario (
+  id_Usuario INTEGER NOT NULL AUTO_INCREMENT,
+  nm_Login VARCHAR NOT NULL,
+  nm_Senha VARCHAR NOT NULL,
+  nm_Pessoa VARCHAR NOT NULL,
+  dt_Nascimento DATE NOT NULL,
+  nm_Email VARCHAR NOT NULL,
+  nm_Pergunta VARCHAR NOT NULL,
+  nm_Resposta VARCHAR NOT NULL,
+  dt_Criacao DATE NOT NULL,
+  dt_Exclusao DATE NULL,
+  vl_Status INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(id_Usuario)
+);
+
+CREATE TABLE Tipo_Quest (
+  idTipo_Quest INTEGER NOT NULL AUTO_INCREMENT,
+  ds_TipoQuest VARCHAR(45) NULL,
+  PRIMARY KEY(idTipo_Quest)
+);
+
+CREATE TABLE Raca (
+  id_Raca INTEGER NOT NULL AUTO_INCREMENT,
+  nm_Raca VARCHAR NOT NULL,
+  ds_Raca VARCHAR NOT NULL,
+  vl_Vida_Base INTEGER NOT NULL,
+  vl_Mana_Base INTEGER NOT NULL,
+  vl_Stamina_Base INTEGER NOT NULL,
+  vl_Forca_Raca INTEGER NOT NULL,
+  vl_Inteligencia_Raca INTEGER NOT NULL,
+  vl_Destreza_Raca INTEGER NOT NULL,
+  vl_Agilidade_Raca INTEGER NOT NULL,
+  vl_Sorte_Raca INTEGER NOT NULL,
+  vl_Status INTEGER NOT NULL,
+  PRIMARY KEY(id_Raca)
+);
+
+CREATE TABLE Item (
+  id_Item INTEGER NOT NULL AUTO_INCREMENT,
+  Classe_id_Classe INTEGER NULL,
+  Personagem_id_Personagem INTEGER NULL,
+  Quest_id_Quest INTEGER NULL,
+  Tipo_Item_id_Tipo_Item INTEGER NOT NULL,
+  nm_Item VARCHAR NOT NULL,
+  ds_Item VARCHAR NOT NULL,
+  vl_Ataque INTEGER NULL,
+  vl_Defesa INTEGER NULL,
+  vl_Durabilidade INTEGER NULL,
+  vl_Peso INTEGER NULL,
+  vl_Valor INTEGER NULL,
+  vl_Level_Minimo INTEGER NOT NULL,
+  PRIMARY KEY(id_Item),
+  CONSTRAINT FK_Classe_Item FOREIGN KEY(Classe_id_Classe)references Classe(id_classe),
+  CONSTRAINT FK_Personagem_Item FOREIGN KEY(Personagem_id_Personagem)references Personagem(id_Personagem),
+  CONSTRAINT FK_Quest_Item FOREIGN KEY(Quest_id_Quest)references Quest(id_Quest),
+  CONSTRAINT FK_TipoItem_Item FOREIGN KEY(Tipo_Item_id_Tipo_Item)references Tipo_Item(id_Tipo_Item)
+);
+
+CREATE TABLE Classe (
+  id_Classe INTEGER NOT NULL AUTO_INCREMENT,
+  Raca_id_Raca INTEGER NOT NULL,
+  vl_Bonus_Forca INTEGER NULL,
+  vl_Bonus_Inteligencia INTEGER NULL,
+  vl_Bonus_Destreza INTEGER NULL,
+  vl_Bonus_Agilidade INTEGER NULL,
+  nm_Classe VARCHAR NOT NULL,
+  ds_Classe VARCHAR NOT NULL,
+  vl_Bonus_sorte INTEGER NULL,
+  vl_Status INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(id_Classe),
+  CONSTRAINT FK_Raca_Classe FOREIGN KEY(Raca_id_Raca)references Raca(id_Raca)	
+);
+
+CREATE TABLE Habilidade (
+  id_Habilidade INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Raca_id_Raca INTEGER UNSIGNED NULL,
+  Classe_id_Classe INTEGER UNSIGNED NULL,
+  Tipo_Habilidade_id_Tipo_Habilidade INTEGER UNSIGNED NOT NULL,
+  vl_Tempo_Duracao INTEGER UNSIGNED NULL,
+  vl_Tempo_Regeneracao INTEGER UNSIGNED NULL,
+  vl_Level_Minimo INTEGER UNSIGNED NOT NULL,
+  vl_Custo INTEGER UNSIGNED NULL,
+  vl_Status INTEGER UNSIGNED NOT NULL,
+  nm_Habilidade VARCHAR NOT NULL,
+  ds_Habilidade VARCHAR NOT NULL,
+  PRIMARY KEY(id_Habilidade),
+  CONSTRAINT FK_TipoHabilidade_Habilidade FOREIGN KEY(Tipo_Habilidade_id_Tipo_Habilidade)references Tipo_Habilidade(id_Tipo_Habilidade),
+  CONSTRAINT FK_Classe_Habilidade FOREIGN KEY(Classe_id_Classe)references Classe(id_Classe),
+  CONSTRAINT FK_Raca_Habilidade FOREIGN KEY(Raca_id_Raca)references Raca(id_Raca)
+);
+
+CREATE TABLE Personagem (
+  id_Personagem INTEGER NOT NULL AUTO_INCREMENT,
+  Raca_id_Raca INTEGER NOT NULL,
+  TIpo_Personagem_id_Tipo_Personagem INTEGER NOT NULL,
+  Usuario_id_Usuario INTEGER NOT NULL,
+  nm_Personagem VARCHAR NOT NULL,
+  nm_Genero VARCHAR NOT NULL,
+  dt_Criacao DATE NOT NULL,
+  vl_Experiencia INTEGER NOT NULL,
+  vl_Status INTEGER UNSIGNED NOT NULL,
+  vl_Vida_Inicial INTEGER NOT NULL,
+  vl_Mana_Inicial INTEGER NOT NULL,
+  vl_Stamina_Inicial INTEGER NOT NULL,
+  vl_Dano_Base INTEGER NOT NULL,
+  dt_Exclusao DATE NULL,
+  PRIMARY KEY(id_Personagem),
+  CONSTRAINT FK_Usuario_Personagem FOREIGN KEY(Usuario_id_Usuario)references Usuario(id_Usuario),
+  CONSTRAINT FK_TipoPersonagem_Personagem FOREIGN KEY(TIpo_Personagem_id_Tipo_Personagem)references Tipo_Personagem(id_Tipo_Personagem),
+  CONSTRAINT FK_Raca_Personagem FOREIGN KEY(Raca_id_Raca)references Raca(id_Raca)
+);
+
+CREATE TABLE Quest (
+  id_Quest INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Personagem_id_Personagem INTEGER UNSIGNED NULL,
+  Tipo_Quest_idTipo_Quest INTEGER UNSIGNED NOT NULL,
+  nm_Quest VARCHAR NOT NULL,
+  ds_Quest VARCHAR NOT NULL,
+  vl_Experiencia INTEGER UNSIGNED NOT NULL,
+  vl_Tempo_Duracao INTEGER UNSIGNED NULL,
+  vl_Status INTEGER UNSIGNED NOT NULL,
+  vl_Level_Minimo INTEGER UNSIGNED NULL,
+  dt_Expiracao DATE NULL,
+  dt_Inicio DATE NULL,
+  PRIMARY KEY(id_Quest),
+  CONSTRAINT FK_TipoQuest_Quest FOREIGN KEY(Tipo_Quest_idTipo_Quest)references Tipo_Quest(idTipo_Quest),
+  CONSTRAINT FK_Personagem_Quest FOREIGN KEY(Personagem_id_Personagem)references Personagem(id_Personagem)
+);
