@@ -3,25 +3,17 @@ SQL> create table Tipo_Item(id_Tipo_Item number(3),
   2  nm_Tipo_Item varchar2(30) not null,
   3  constraint pk_Tipo_Item primary key(id_Tipo_Item));
 
-Tabela criada.
-
 SQL> create table Tipo_Habilidade(id_Tipo_Habilidade number(2),
   2  nm_Tipo_Habilidade varchar2(30) not null,
   3  constraint pk_Tipo_Habilidade primary key(id_Tipo_Habilidade));
-
-Tabela criada.
 
 SQL> create table Tipo_Quest(id_Tipo_Quest number(3),
   2  nm_Tipo_Quest varchar(30) not null,
   3  constraint pk_Tipo_Quest primary key(id_Tipo_Quest));
 
-Tabela criada.
-
 SQL> create table Tipo_Personagem(id_Tipo_Personagem number(2),
   2  nm_Tipo_Personagem varchar(30) not null,
   3  constraint pk_Tipo_Personagem primary key(id_Tipo_Personagem));
-
-Tabela criada.
 
 SQL> create table Usuario(id_Usuario number(3),
   2  nm_Login varchar2(30) not null,
@@ -35,8 +27,6 @@ SQL> create table Usuario(id_Usuario number(3),
  10  dt_Exclusao date,
  11  vl_Status number(1) not null,
  12  constraint pk_Usuario primary key(id_Usuario));
-
-Tabela criada.
 
 SQL> create table Raca(id_Raca number(2),
   2  nm_Raca varchar2(30) not null,
@@ -52,8 +42,6 @@ SQL> create table Raca(id_Raca number(2),
  12  vl_Status number(2) not null,
  13  constraint pk_Raca primary key(id_Raca));
 
-Tabela criada.
-
 SQL> create table Classe(id_Classe number(2),
   2  id_Raca number(2) not null,
   3  vl_Bonus_Forca number(2),
@@ -66,8 +54,6 @@ SQL> create table Classe(id_Classe number(2),
  10  vl_Status number(1) not null,
  11  constraint pk_Classe primary key(id_Classe),
  12  constraint fk_Raca_Classe foreign key(id_Raca) references Raca(id_Raca));
-
-Tabela criada.
 
 SQL> create table Habilidade(id_Habilidade number(3),
   2  id_Raca number(2),
@@ -84,9 +70,6 @@ SQL> create table Habilidade(id_Habilidade number(3),
  13  constraint fk_Raca_Habilidade foreign key(id_Raca) references Raca(id_Raca),
  14  constraint fk_Classe_Habilidade foreign key(id_Classe) references Classe(id_Classe),
  15  constraint fk_Tipo_Habilidade foreign key(id_Tipo_Habilidade) references Tipo_Habilidade(id_Tipo_Habilidade));
-
-Tabela criada.
-
 
 SQL> create table Personagem(id_Personagem number(4),
   2  id_Tipo_Personagem number(2) not null,
@@ -107,8 +90,6 @@ SQL> create table Personagem(id_Personagem number(4),
  17  constraint fk_Raca_Personagem foreign key(id_Raca) references Raca(id_Raca),
  18  constraint fk_Usuario_Personagem foreign key(id_Usuario) references Usuario(id_Usuario));
 
-Tabela criada.
-
 SQL> create table Quest(id_Quest number(3),
   2  id_Personagem number(4),
   3  id_Tipo_Quest number(2) not null,
@@ -123,8 +104,6 @@ SQL> create table Quest(id_Quest number(3),
  12  constraint pk_Quest primary key(id_Quest),
  13  constraint fk_Personagem_Quest foreign key(id_Personagem) references Personagem(id_Personagem),
  14  constraint fk_Tipo_Quest foreign key(id_Tipo_Quest) references Tipo_Quest(id_Tipo_Quest));
-
-Tabela criada.
 
 SQL> create table Item(id_Item number(4),
   2  id_Classe number(2),
@@ -144,5 +123,3 @@ SQL> create table Item(id_Item number(4),
  16  constraint fk_Personagem_Item foreign key(id_Personagem) references Personagem(id_Personagem),
  17  constraint fk_Quest_Item foreign key(id_Quest) references Quest(id_Quest),
  18  constraint fk_Tipo_Item foreign key(id_Tipo_Item) references Tipo_Item(id_Tipo_Item));
-
-Tabela criada.
